@@ -1,0 +1,4 @@
+aiohttp==3.9.1
+aiohttp-cors==0.7.0
+beautifulsoup4==4.12.3
+html2text==2024.2.26

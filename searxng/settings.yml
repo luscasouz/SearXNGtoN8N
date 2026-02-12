@@ -1,0 +1,47 @@
+use_default_settings: true
+
+server:
+  secret_key: "change-me-to-a-random-string"
+  limiter: false
+  image_proxy: true
+  port: 8080
+  bind_address: "0.0.0.0"
+
+search:
+  safe_search: 0
+  autocomplete: "google"
+  default_lang: "pt-BR"
+  formats:
+    - html
+    - json
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  default_locale: pt
+
+engines:
+  - name: google
+    engine: google
+    shortcut: go
+    disabled: false
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: false
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+  - name: brave
+    engine: brave
+    shortcut: br
+    disabled: false
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    disabled: false
+  - name: google news
+    engine: google_news
+    shortcut: gn
+    disabled: false

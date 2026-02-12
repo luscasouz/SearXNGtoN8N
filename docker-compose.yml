@@ -1,0 +1,44 @@
+services:
+  mcp-searxng:
+    build: .
+    container_name: mcp-searxng
+    environment:
+      - SEARXNG_URL=http://searxng:8080
+      - HOST=0.0.0.0
+      - PORT=8091
+      - LOG_LEVEL=INFO
+      - DEFAULT_MAX_RESULTS=10
+      - REQUEST_TIMEOUT=30
+    ports:
+      - "8091:8091"
+    networks:
+      - mcp-net
+    restart: unless-stopped
+    depends_on:
+      searxng:
+        condition: service_healthy
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    volumes:
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - searxng-data:/etc/searxng
+    ports:
+      - "8890:8080"
+    networks:
+      - mcp-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+volumes:
+  searxng-data:
+
+networks:
+  mcp-net:
+    driver: bridge
